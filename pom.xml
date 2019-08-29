@@ -72,10 +72,28 @@
         </dependency>
 
 		<!-- handlebars -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>pl.allegro.tech.boot</groupId> -->
+<!-- 			<artifactId>handlebars-spring-boot-starter</artifactId> -->
+<!-- 			<version>0.3.0</version> -->
+<!-- 		</dependency> -->
+
+		<!-- Thymeleaf -->
 		<dependency>
-			<groupId>pl.allegro.tech.boot</groupId>
-			<artifactId>handlebars-spring-boot-starter</artifactId>
-			<version>0.3.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+		<!-- Thymeleaf에서 레이아웃과 템플릿을 작성할 수 있도록 도와주는 라이브러리  -->
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+		</dependency>
+
+		<!-- SpringBoot에서는 front-end는 resources 디렉토리에서 관리되기 때문에 서버를 재시작해야하는 문제 해결  -->		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
 	</dependencies>

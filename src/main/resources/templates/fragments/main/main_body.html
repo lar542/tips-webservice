@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body th:fragment="mainBody">
+   	<th:block th:include="fragments/main/main_nav"></th:block>
+    <th:block layout:fragment="content_body"></th:block>
+    <th:block th:include="fragments/main/main_footer"></th:block>
+
+    <!-- Bootstrap core JavaScript -->
+	<script th:src="@{/js/lib/jquery.min.js}"></script>
+	<script th:src="@{/js/lib/bootstrap.min.js}"></script>
+    
+</body>
+</html>
