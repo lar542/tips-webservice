@@ -1,21 +1,21 @@
-package com.tips.webservice.post;
+package com.tips.webservice.event;
 
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.tips.webservice.post.dto.PostSaveRequestDto;
+import com.tips.webservice.event.dto.EventSaveRequestDto;
 
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class PostService {
+public class EventService {
 
-	private PostRepository postRepository;
+	private EventRepository postRepository;
 	
 	@Transactional
-	public Long save(PostSaveRequestDto dto) {
+	public Long save(EventSaveRequestDto dto) {
 		return postRepository.save(dto.toEntity()).getId();
 	}
 }

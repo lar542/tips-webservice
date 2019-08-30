@@ -1,4 +1,4 @@
-package com.tips.webservice.common;
+package com.tips.webservice;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

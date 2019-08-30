@@ -4,11 +4,12 @@
 	<meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-	
-	<title layout:title-pattern="$LAYOUT_TITLE > $CONTENT_TITLE">tips</title>
+	<title>Tips</title>
 	
 	<!-- Bootstrap core CSS -->
     <link rel="stylesheet" th:href="@{/css/lib/bootstrap.min.css}" />
+    <!-- Custom or page css  -->
+    <th:block layout:fragment="custom_css"></th:block>
 
 </head>
 </html>

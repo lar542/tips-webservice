@@ -2,6 +2,8 @@ package com.tips.webservice.post;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDateTime;
+
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,17 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.tips.webservice.post.dto.PostSaveRequestDto;
+import com.tips.webservice.event.Event;
+import com.tips.webservice.event.EventRepository;
+import com.tips.webservice.event.EventService;
+import com.tips.webservice.event.dto.EventSaveRequestDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PostServiceTest {
 
 	@Autowired
-	private PostRepository postRepository;
+	private EventRepository postRepository;
 	
 	@Autowired
-	private PostService postService;
+	private EventService postService;
 	
 	@After
 	public void cleanup() {
@@ -27,20 +32,26 @@ public class PostServiceTest {
 	}
 	
 	@Test
-	public void dto데이터가_post테이블에_저장된다() {
+	public void dto데이터가_event테이블에_저장된다() {
 		//given
-		PostSaveRequestDto dto = PostSaveRequestDto.builder()
+		EventSaveRequestDto dto = EventSaveRequestDto.builder()
 				.title("제목")
-				.content("내용")
-				.author("gugu")
+				.address("주소")
+				.latitude(123.456)
+				.longitude(12.45)
+				.eventStartDate(LocalDateTime.of(2019, 8, 1, 9, 00))
+				.eventEndDate(LocalDateTime.of(2019, 8, 2, 5, 00))
+				.eventHost("주최자")
+				.numberOfPeople(125)
+				.applyStartDate(LocalDateTime.now())
+				.applyEndDate(LocalDateTime.now())
+				.details("이 모임을 블라블라~")
 				.build();
 		//when
 		postService.save(dto);
 		
 		//then
-		Post post = postRepository.findAll().get(0);
+		Event post = postRepository.findAll().get(0);
 		assertThat(post.getTitle()).isEqualTo(dto.getTitle());
-		assertThat(post.getContent()).isEqualTo(dto.getContent());
-		assertThat(post.getAuthor()).isEqualTo(dto.getAuthor());
 	}
 }

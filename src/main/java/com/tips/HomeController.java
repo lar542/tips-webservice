@@ -18,7 +18,12 @@ public class HomeController {
 	
 	@GetMapping("/login")
 	public String login() {
-		return "user/login";
+		return "/views/user/login";
+	}
+	
+	@GetMapping("/events")
+	public String events() {
+		return "/views/event/list";
 	}
 	
 	@GetMapping({"/user", "/me"})

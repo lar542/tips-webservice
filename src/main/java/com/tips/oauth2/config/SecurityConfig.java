@@ -49,10 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	http.headers().frameOptions().disable();
 		
 		http.antMatcher("/**") //모든 요청은 기본적으로 보호
-			.authorizeRequests().antMatchers("/", "/login**", "/h2-console/**").permitAll() //홈페이지와 로그인은 보안 해제
+			.authorizeRequests().antMatchers("/", "/login**", "/events**", "/h2-console/**").permitAll() //홈페이지와 로그인은 보안 해제
 			.anyRequest().authenticated() //다른 모든 곳에는 인증된 사용자가 필요
 			.and()
-			.exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
+			.exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")) //인증되지 않은 사용자는 해당 페이지로 리다이렉트
 			.and()
 			.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 		
@@ -63,6 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			.logoutSuccessUrl("/")
 			.permitAll();
+		
+//		.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) //보안을 위한 CSRF
 	}
 	
 	/**

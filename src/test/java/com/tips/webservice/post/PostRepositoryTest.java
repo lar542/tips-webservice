@@ -12,12 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.tips.webservice.event.Event;
+import com.tips.webservice.event.EventRepository;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PostRepositoryTest {
 
 	@Autowired
-	private PostRepository postRepository;
+	private EventRepository postRepository;
 	
 	@After
 	public void cleanup() {
@@ -27,17 +30,14 @@ public class PostRepositoryTest {
 	@Test
 	public void 게시글_저장_조회() {
 		//given
-		postRepository.save(Post.builder()
+		postRepository.save(Event.builder()
 				.title("게시글 제목")
-				.content("게시글 내용")
-				.author("게시글 작성자")
 				.build());
 		//when
-		List<Post> posts = postRepository.findAll();
+		List<Event> posts = postRepository.findAll();
 		
 		//then
-		Post post = posts.get(0);
+		Event post = posts.get(0);
 		assertThat(post.getTitle(), is("게시글 제목"));
-		assertThat(post.getContent(), is("게시글 내용"));
 	}
 }
