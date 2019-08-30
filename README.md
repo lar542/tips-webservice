@@ -36,7 +36,8 @@ spring:
 ```
 
 ### Thymeleaf로 화면 구성하기(layout)
-* [참고](https://elfinlas.github.io/2018/02/16/thymeleaf-layout-dialect_exam/)
+* [Thymeleaf Page Layouts 참고](https://www.thymeleaf.org/doc/articles/layouts.html)
+* [블로그 참고](https://elfinlas.github.io/2018/02/16/thymeleaf-layout-dialect_exam/)
 * Thymeleaf에서 레이아웃과 템플릿을 작성할 수 있도록 도와주는 dialect를 추가한다.
 
 ```xml
