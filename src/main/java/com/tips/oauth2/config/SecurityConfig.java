@@ -24,6 +24,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CompositeFilter;
 
 import com.tips.oauth2.social.SocialService;
+import com.tips.oauth2.social.facebook.FacebookOAuth2ClientAuthenticationProcessingFilter;
 import com.tips.oauth2.social.google.GoogleOAuth2ClientAuthenticationProcessingFilter;
 
 import lombok.AllArgsConstructor;
@@ -49,10 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	http.headers().frameOptions().disable();
 		
 		http.antMatcher("/**") //모든 요청은 기본적으로 보호
-			.authorizeRequests().antMatchers("/", "/login**", "/events**", "/h2-console/**").permitAll() //홈페이지와 로그인은 보안 해제
+			.authorizeRequests().antMatchers("/", "/login**", "/events**", "/h2-console/**").permitAll() //해당 요청은 보안 해제
 			.anyRequest().authenticated() //다른 모든 곳에는 인증된 사용자가 필요
 			.and()
-			.exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")) //인증되지 않은 사용자는 해당 페이지로 리다이렉트
+			.exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")) //인증되지 않은 사용자는 해당 페이지로 리다이렉트
 			.and()
 			.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 		
@@ -83,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private Filter ssoFilter() {
 		CompositeFilter filter = new CompositeFilter();
 		List<Filter> filters = new ArrayList<>();
-//		filters.add(ssoFilter(naver(), new NaverOAuth2ClientAuthenticationProcessingFilter(socialService)));
+		filters.add(ssoFilter(facebook(), new FacebookOAuth2ClientAuthenticationProcessingFilter(socialService)));
 		filters.add(ssoFilter(google(), new GoogleOAuth2ClientAuthenticationProcessingFilter(socialService)));
 		filter.setFilters(filters);
 		return filter;
@@ -92,7 +93,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private Filter ssoFilter(ClientResources client, OAuth2ClientAuthenticationProcessingFilter filter) {
 		//인증서버에서 OAuth2 access token을 획득하고
 		//인증 객체를 SecurityConterxt에 로드하는 데 사용할 수 있는 OAuth2 클라이언트 필터
-//		OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
 		OAuth2RestTemplate restTemplate = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
 		filter.setRestTemplate(restTemplate);
 		UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
@@ -105,8 +105,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * properties 들을 빈으로 등록
 	 */
 	@Bean
-	@ConfigurationProperties("naver")
-	public ClientResources naver() {
+	@ConfigurationProperties("facebook")
+	public ClientResources facebook() {
 		return new ClientResources();
 	}
 	

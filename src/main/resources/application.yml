@@ -2,17 +2,17 @@ spring:
   profiles:
     active: local # 기본 환경 선택
 
-naver:
+facebook:
   client:
-    clientId: QHgYiiIqE6yUEYuRkG3y
-    clientSecret: f6seh0Mbgm
-    accessTokenUri: https://nid.naver.com/oauth2.0/token
-    userAuthorizationUri: https://nid.naver.com/oauth2.0/authorize
+    clientId: 766109917181292
+    clientSecret: e4b89034491f1e0c716b15dac9abe92d
+    accessTokenUri: https://graph.facebook.com/oauth/access_token
+    userAuthorizationUri: https://www.facebook.com/dialog/oauth
     tokenName: oauth_token
     authenticationScheme: query
     clientAuthenticationScheme: form
   resource:
-    userInfoUri: https://openapi.naver.com/v1/nid/me
+    userInfoUri: https://graph.facebook.com/me?fields=id, name, email, picture
 google :
   client :
     clientId : 662583019632-e4gc1k6tk30ve1luvnq1lt5d2ugk96ea.apps.googleusercontent.com
@@ -25,7 +25,7 @@ google :
     - profile
   resource:
     userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
-      
+
 
 # local 환경
 ---
@@ -41,10 +41,21 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+    properties:
+      hibernate.format_sql: true
   h2:
     console:
       enabled: true
       path: /h2-console
+
+server:
+  ssl:
+    enabled: true
+    key-store: keystore.p12
+    key-store-password: together
+    key-store-type: PKCS12
+    key-alias: bns-ssl
+  port: 8081
       
 logging:
   level:

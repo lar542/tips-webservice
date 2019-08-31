@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.tips.oauth2.social.facebook.FacebookUserDetails;
 import com.tips.oauth2.social.google.GoogleUserDetails;
 
 import lombok.AccessLevel;
@@ -24,7 +25,6 @@ public class UserConnection implements Serializable {
 	@Id @GeneratedValue
 	private Long id;
 	
-	@Column(nullable = false, unique = true)
 	private String email;
 
 	@Enumerated(EnumType.STRING)
@@ -65,6 +65,18 @@ public class UserConnection implements Serializable {
                 .imageUrl(userDetails.getPicture())
                 .provider(ProviderType.GOOGLE)
                 .profileUrl(userDetails.getProfile())
+                .build();
+    }
+    
+    public static UserConnection valueOf(FacebookUserDetails userDetails) {
+        return UserConnection.builder()
+                .expireTime(userDetails.getExpiration())
+                .accessToken(userDetails.getAccess_token())
+                .providerId(userDetails.getId())
+                .email(userDetails.getEmail())
+                .displayName(userDetails.getName())
+                .imageUrl(userDetails.getImageUrl())
+                .provider(ProviderType.FACEBOOK)
                 .build();
     }
 }

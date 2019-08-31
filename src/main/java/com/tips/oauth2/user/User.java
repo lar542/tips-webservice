@@ -24,7 +24,6 @@ public class User extends BaseTimeEntity {
 	@Id @GeneratedValue
 	private Long id;
 	
-	@Column(nullable = false, unique = true)
 	private String email;
 	
 	@Column(nullable = false, unique = true)
