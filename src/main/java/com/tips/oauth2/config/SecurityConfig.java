@@ -59,11 +59,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//logout
 		http.logout()
-			.invalidateHttpSession(true)
-			.clearAuthentication(true)
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutUrl("/logout")
 			.logoutSuccessUrl("/")
+			.invalidateHttpSession(true)
+			.deleteCookies("JSESSIONID")
+			.clearAuthentication(true)
 			.permitAll();
+		
+//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		
 //		.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) //보안을 위한 CSRF
 	}

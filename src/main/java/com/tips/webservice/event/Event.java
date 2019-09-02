@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import com.tips.webservice.BaseTimeEntity;
+import com.tips.webservice.event.dto.EventSaveRequestDto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -56,9 +57,10 @@ public class Event extends BaseTimeEntity {
 	private String details;
 
 	@Builder
-	public Event(String title, String address, double latitude, double longitude, LocalDateTime eventStartDate,
+	public Event(Long id, String title, String address, double latitude, double longitude, LocalDateTime eventStartDate,
 			LocalDateTime eventEndDate, String eventHost, int numberOfPeople, LocalDateTime applyStartDate,
 			LocalDateTime applyEndDate, String details) {
+		this.id = id;
 		this.title = title;
 		this.address = address;
 		this.latitude = latitude;
@@ -72,4 +74,17 @@ public class Event extends BaseTimeEntity {
 		this.details = details;
 	}
 	
+	public void setEntity(EventSaveRequestDto dto) {
+		this.title = dto.getTitle();
+		this.address = dto.getAddress();
+		this.latitude = dto.getLatitude();
+		this.longitude = dto.getLongitude();
+		this.eventStartDate = dto.getEventStartDate();
+		this.eventEndDate = dto.getEventEndDate();
+		this.eventHost = dto.getEventHost();
+		this.numberOfPeople = dto.getNumberOfPeople();
+		this.applyStartDate = dto.getApplyStartDate();
+		this.applyEndDate = dto.getApplyEndDate();
+		this.details = dto.getDetails();
+	}
 }

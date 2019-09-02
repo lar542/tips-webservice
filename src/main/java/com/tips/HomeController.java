@@ -16,11 +16,6 @@ public class HomeController {
 		return "main";
 	}
 	
-	@GetMapping("/login")
-	public String login() {
-		return "/views/user/login";
-	}
-	
 	@GetMapping("/events")
 	public String events() {
 		return "/views/event/list";

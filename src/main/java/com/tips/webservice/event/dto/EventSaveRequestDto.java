@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 public class EventSaveRequestDto {
 
+	private Long id;
 	private String title;
 	private String address;
 	private double latitude; //위도
@@ -27,9 +28,10 @@ public class EventSaveRequestDto {
 	private String details;
 
 	@Builder
-	public EventSaveRequestDto(String title, String address, double latitude, double longitude, LocalDateTime eventStartDate,
+	public EventSaveRequestDto(Long id, String title, String address, double latitude, double longitude, LocalDateTime eventStartDate,
 			LocalDateTime eventEndDate, String eventHost, int numberOfPeople, LocalDateTime applyStartDate,
 			LocalDateTime applyEndDate, String details) {
+		this.id = id;
 		this.title = title;
 		this.address = address;
 		this.latitude = latitude;
@@ -45,6 +47,7 @@ public class EventSaveRequestDto {
 	
 	public Event toEntity() {
 		return Event.builder()
+				.id(id)
 				.title(title)
 				.address(address)
 				.latitude(latitude)

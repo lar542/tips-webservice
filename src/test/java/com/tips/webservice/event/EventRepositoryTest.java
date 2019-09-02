@@ -1,4 +1,4 @@
-package com.tips.webservice.post;
+package com.tips.webservice.event;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -17,24 +17,25 @@ import com.tips.webservice.event.EventRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PostRepositoryTest {
+public class EventRepositoryTest {
 
 	@Autowired
-	private EventRepository postRepository;
+	private EventRepository eventRepository;
 	
 	@After
 	public void cleanup() {
-		postRepository.deleteAll();
+		eventRepository.deleteAll();
 	}
 	
 	@Test
 	public void 게시글_저장_조회() {
 		//given
-		postRepository.save(Event.builder()
+		eventRepository.save(
+			Event.builder()
 				.title("게시글 제목")
 				.build());
 		//when
-		List<Event> posts = postRepository.findAll();
+		List<Event> posts = eventRepository.findAll();
 		
 		//then
 		Event post = posts.get(0);
