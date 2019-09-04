@@ -10,5 +10,4 @@ public class EventController {
 
 	private EventService postService;
 	
-	
 }
