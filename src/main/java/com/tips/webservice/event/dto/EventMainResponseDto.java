@@ -19,7 +19,8 @@ public class EventMainResponseDto {
 	private double longitude;
 	private String eventStartDate;
 	private String eventEndDate;
-	private String eventHost;
+	private Long eventHost;
+	private String eventHostName;
 	private int numberOfPeople;
 	private String applyStartDate;
 	private String applyEndDate;
@@ -34,6 +35,7 @@ public class EventMainResponseDto {
 		this.eventStartDate = toStringDateTime(entity.getEventStartDate());
 		this.eventEndDate = toStringDateTime(entity.getEventEndDate());
 		this.eventHost = entity.getEventHost();
+		this.eventHostName = entity.getEventHostName();
 		this.numberOfPeople = entity.getNumberOfPeople();
 		this.applyStartDate = toStringDateTime(entity.getApplyStartDate());
 		this.applyEndDate = toStringDateTime(entity.getApplyEndDate());

@@ -21,7 +21,8 @@ public class EventSaveRequestDto {
 	private double longitude; //경도
 	private LocalDateTime eventStartDate;
 	private LocalDateTime eventEndDate;
-	private String eventHost;
+	private Long eventHost;
+	private String eventHostName;
 	private int numberOfPeople;
 	private LocalDateTime applyStartDate;
 	private LocalDateTime applyEndDate;
@@ -29,7 +30,7 @@ public class EventSaveRequestDto {
 
 	@Builder
 	public EventSaveRequestDto(Long id, String title, String address, double latitude, double longitude, LocalDateTime eventStartDate,
-			LocalDateTime eventEndDate, String eventHost, int numberOfPeople, LocalDateTime applyStartDate,
+			LocalDateTime eventEndDate, Long eventHost, String eventHostName, int numberOfPeople, LocalDateTime applyStartDate,
 			LocalDateTime applyEndDate, String details) {
 		this.id = id;
 		this.title = title;
@@ -39,6 +40,7 @@ public class EventSaveRequestDto {
 		this.eventStartDate = eventStartDate;
 		this.eventEndDate = eventEndDate;
 		this.eventHost = eventHost;
+		this.eventHostName = eventHostName;
 		this.numberOfPeople = numberOfPeople;
 		this.applyStartDate = applyStartDate;
 		this.applyEndDate = applyEndDate;
@@ -55,6 +57,7 @@ public class EventSaveRequestDto {
 				.eventStartDate(eventStartDate)
 				.eventEndDate(eventEndDate)
 				.eventHost(eventHost)
+				.eventHostName(eventHostName)
 				.numberOfPeople(numberOfPeople)
 				.applyStartDate(applyStartDate)
 				.applyEndDate(applyEndDate)

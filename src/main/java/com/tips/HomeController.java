@@ -16,16 +16,11 @@ public class HomeController {
 		return "main";
 	}
 	
-	@GetMapping("/events")
-	public String events() {
-		return "/views/event/list";
-	}
-	
 	@GetMapping({"/user", "/me"})
 	@ResponseBody
 	public Map<String, String> user(Principal principal) {
 		Map<String, String> map = new LinkedHashMap<>();
-		map.put("name", principal.getName());
+		map.put("name", principal.getName().toString());
 		return map;
 	}
 }

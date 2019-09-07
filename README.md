@@ -95,3 +95,53 @@ https://localhost:8081
 
 ![경고문1](/md_images/image2.png)
 ![경고문2](/md_images/image3.png)
+
+## Spring Security를 이용하여 사용자 정보 찾는 방법
+* SpringContextHolder를 사용하는 방법
+
+```java
+Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+System.out.println(authentication.getName());
+
+User user = (User) authentication.getPrincipal(); //현재 세션 사용자의 객체 가져오기
+//UserDetails를 구현한 사용자 객체가 가지고 있는 정보들을 리턴
+
+Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+boolean roleComfirm = authorities.stream().filter(o -> o.getAuthority().equals("ROLE_ADMIN")).findAny().isPresent();
+//현재 사용자가 ROLE_ADMIN이라는 ROLE을 가지고 있는 지 확인
+```
+
+* Contoller의 경우 메서드의 인자로 Principal 객체를 받는 방법
+
+```java
+@RequestMapping("/")
+public String index(Principal principal) {
+    System.out.println(principal.getName());
+    return "index";
+}
+```
+* [참고](http://chomman.github.io/blog/spring%20framework/spring-security%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EC%82%AC%EC%9A%A9%EC%9E%90%EC%9D%98-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%B0%BE%EB%8A%94-%EB%B0%A9%EB%B2%95/)
+
+## Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported
+* html form을 그대로 submit했을 때 오류가 났었다.
+* 이는 Controller에서 파리미터를 @RequestBody로 받는 상태이기 때문에 json 객체로 전달해야 한다.
+	* @RequestBody : HTTP 요청의 body 내용을 자바 객체로 매핑한다.
+	* @ResponseBody : 자바 객체를 HTTP 요청의 body 내용으로 매핑한다.
+* 보통 jQuery에서 ajajx() 함수의 기본 Content-Type은 "application/x-www-form-urlencoded" 이다.
+이를 "application/json"으로 변경하자.
+* 이렇게 변경한 경우에는 데이터를 query string이 아니라 json 형식의 string으로 데이터를 전송해야 한다.
+	* form 요소 값들을 query string으로 만들기 : $('#form_id').serialize()
+	* javascript array 객체를 query string으로 만들기 : jQuery.param(array객체)
+* [form 요소 값들을 json 객체로 만드는 여러 방법](https://stackoverflow.com/questions/1184624/convert-form-data-to-javascript-object-with-jquery?page=1&tab=votes#tab-top)
+* 이 방법들 중 가장 많은 좋아요를 받은 것은 아래와 같다.
+
+```javascript
+var arr = $('#event-post').serializeArray();
+//[{name: "name값", value: "value값"}, {}, {}, ...]
+var data = {};
+for (var i = 0; i < arr.length; i++){
+    data[arr[i]["name"]] = arr[i]["value"];
+}
+JSON.stringify(data); //json 형태의 string 타입으로 바꾼다.
+```

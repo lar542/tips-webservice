@@ -87,21 +87,21 @@ function displayPlaces(places) {
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
         (function(marker, title) {
-            kakao.maps.event.addListener(marker, 'mouseover', function() {
+            kakao.maps.event.addListener(marker, 'click', function() {
                 displayInfowindow(marker, title);
             });
 
-            kakao.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
-            });
+            // kakao.maps.event.addListener(marker, 'mouseout', function() {
+            //     infowindow.close();
+            // });
 
-            itemEl.onmouseover =  function () {
+            itemEl.onclick =  function () {
                 displayInfowindow(marker, title);
             };
 
-            itemEl.onmouseout =  function () {
-                infowindow.close();
-            };
+            // itemEl.onmouseout =  function () {
+            //     infowindow.close();
+            // };
         })(marker, places[i].place_name);
 
         fragment.appendChild(itemEl);
@@ -206,6 +206,9 @@ function displayInfowindow(marker, title) {
 
     infowindow.setContent(content);
     infowindow.open(map, marker);
+
+    var latLng = marker.getPosition(); //위도, 경도
+    getAddress(latLng, title);
 }
 
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -214,37 +217,20 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
-// 마커를 담을 배열입니다
-var markers = [];
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+//좌표 값에 해당하는 구 주소와 도로명 주소 정보를 찾는다.
+function getAddress(latLng, title){
+    document.getElementById('latitude').value = latLng.getLat();
+    document.getElementById('longitude').value = latLng.getLng()
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+    var geocoder = new kakao.maps.services.Geocoder();
 
-// 장소 검색 객체를 생성합니다
-var ps = new kakao.maps.services.Places();  
+    var coord = new kakao.maps.LatLng(latLng.getLat(), latLng.getLng());
+    var callback = function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            document.getElementById('address').value = '[' + title + '] ' + result[0].address.address_name; //구 주소 값;
+        }
+    };
 
-// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-
-// 키워드로 장소를 검색합니다
-searchPlaces();
-
-// 키워드 검색을 요청하는 함수입니다
-function searchPlaces() {
-
-    var keyword = document.getElementById('keyword').value;
-
-    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
-        return false;
-    }
-
-    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch( keyword, placesSearchCB); 
+    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
 }
