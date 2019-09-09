@@ -19,46 +19,46 @@
 		  <form id="eventForm">
 		    <div class="form-group">
 		      <label for="title">모임 이름:</label>
-		      <input type="text" class="form-control" id="title" placeholder="모임 이름" name="title">
+		      <input th:value="${event.title}" type="text" class="form-control" id="title" placeholder="모임 이름" name="title">
 		    </div>
 		    <div class="form-group">
 		      <label for="details">모임 소개:</label>
-		      <textarea class="form-control" id="details" placeholder="모임 소개" name="details"></textarea>
+		      <textarea th:value="${event.details}" class="form-control" id="details" placeholder="모임 소개" name="details"></textarea>
 		    </div>
 		    <div class="form-group">
 		      <label for="eventHostName">주최자명:</label>
-		      <input type="text" class="form-control" id="eventHostName" placeholder="주최자명" name="eventHostName">
+		      <input th:value="${event.eventHostName}" type="text" class="form-control" id="eventHostName" placeholder="주최자명" name="eventHostName">
 			</div>
 			<div class="form-group">
 				<label for="address">주소:</label>
 				<div class="input-group">
-					<input type="text" class="form-control" id="address" placeholder="주소를 정확히 입력하세요" name="address">
+					<input th:value="${event.address}" type="text" class="form-control" id="address" placeholder="주소를 정확히 입력하세요" name="address">
 					<div class="input-group-btn">
 						<button class="btn btn-info" type="button" data-toggle="modal" data-target="#findPathModal" id="findPath">지도에서 주소 찾기</button>
 					</div>
 				</div>
-				<input type="text" class="form-control" id="latitude" placeholder="위도" name="latitude">
-				<input type="text" class="form-control" id="longitude" placeholder="경도" name="longitude">
+				<input th:value="${event.latitude}" type="text" class="form-control" id="latitude" placeholder="위도" name="latitude">
+				<input th:value="${event.longitude}" type="text" class="form-control" id="longitude" placeholder="경도" name="longitude">
 			</div>
 		    <div class="form-group">
 		      <label for="eventStartDate">모임시작일시:</label>
-		      <input type="datetime-local" class="form-control" id="eventStartDate" name="eventStartDate">
+		      <input th:value="${event.eventStartDate}" type="datetime-local" class="form-control" id="eventStartDate" name="eventStartDate">
 		    </div>
 		    <div class="form-group">
 		      <label for="eventEndDate">모임종료일시:</label>
-		      <input type="datetime-local" class="form-control" id="eventEndDate" name="eventEndDate">
+		      <input th:value="${event.eventEndDate}" type="datetime-local" class="form-control" id="eventEndDate" name="eventEndDate">
 		    </div>
 		    <div class="form-group">
 		      <label for="numberOfPeople">모임인원:</label>
-		      <input type="number" class="form-control" id="numberOfPeople" name="numberOfPeople" placeholder="모임인원" min="1">
+		      <input th:value="${event.numberOfPeople}" type="number" class="form-control" id="numberOfPeople" name="numberOfPeople" placeholder="모임인원" min="1">
 				</div>
 				<div class="form-group">
 		      <label for="applyStartDate">신청시작일시:</label>
-		      <input type="datetime-local" class="form-control" id="applyStartDate" name="applyStartDate">
+		      <input th:value="${event.applyStartDate}" type="datetime-local" class="form-control" id="applyStartDate" name="applyStartDate">
 		    </div>
 		    <div class="form-group">
 		      <label for="applyEndDate">신청종료일시:</label>
-		      <input type="datetime-local" class="form-control" id="applyEndDate" name="applyEndDate">
+		      <input th:value="${event.applyEndDate}" type="datetime-local" class="form-control" id="applyEndDate" name="applyEndDate">
 		    </div>
 				
 				<button class="btn btn-default" id="imsiSave">임시저장</button>

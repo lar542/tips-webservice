@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class UserConnection implements Serializable {
 
 	@Id @GeneratedValue
+	@Column(name = "USERCONNECTION_ID")
 	private Long id;
 	
 	private String email;
@@ -30,7 +31,7 @@ public class UserConnection implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private ProviderType provider;
 	
-	@Column(name = "provider_id", unique = true, nullable = false)
+	@Column(name = "PROVIDER_ID", unique = true, nullable = false)
     private String providerId;
 	
     private String displayName;

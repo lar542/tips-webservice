@@ -6,7 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import com.tips.oauth2.user.User;
 import com.tips.webservice.BaseTimeEntity;
 import com.tips.webservice.event.dto.EventSaveRequestDto;
 
@@ -24,10 +27,12 @@ import lombok.NoArgsConstructor;
 public class Event extends BaseTimeEntity {
 
 	@Id @GeneratedValue
+	@Column(name = "EVENT_ID")
 	private Long id;
 	
-	@Column(nullable = false)
-	private Long eventHost;
+	@ManyToOne
+	@JoinColumn(name = "USER_ID")
+	private User user;
 	
 	@Column(length = 300)
 	private String eventHostName; 
@@ -35,7 +40,7 @@ public class Event extends BaseTimeEntity {
 	@Column(length = 500, nullable = false)
 	private String title;
 	
-	@Column(columnDefinition = "LONGTEXT", nullable = false)
+	@Column(columnDefinition = "LONGTEXT")
 	private String details;
 	
 	@Column(length = 500)
@@ -55,10 +60,12 @@ public class Event extends BaseTimeEntity {
 	private LocalDateTime applyStartDate;
 	
 	private LocalDateTime applyEndDate;
+	
+	private char saveYn;
 
 	
 	public void setEntity(EventSaveRequestDto dto) {
-		this.eventHost = dto.getEventHost();
+		this.user = dto.getUser();
 		this.eventHostName = dto.getEventHostName();
 		this.title = dto.getTitle();
 		this.details = dto.getDetails();

@@ -49,10 +49,11 @@
             <version>2.0.0.RELEASE</version>
         </dependency>
 
+		<!-- H2 DB에 접근할 수 있는 드라이버 -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <scope>1.4.199</scope>
         </dependency>
 
         <dependency>
